@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transit-producer
+  namespace: data-pipeline
+  labels:
+    app: transit-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transit-producer
+  template:
+    metadata:
+      labels:
+        app: transit-producer
+      annotations:
+        prometheus.io/scrape: "false"
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsNonRoot: true
+      containers:
+      - name: transit-producer
+        image: harbor.int-talos-poc.pocketcove.net/library/transit-producer:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "50m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        env:
+        - name: RUST_LOG
+          value: "transit_http_producer=info"

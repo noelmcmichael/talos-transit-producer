@@ -9,7 +9,7 @@ use tracing::{error, info, warn};
 const RUSTMQ_HOST: &str = "rustmq-0.rustmq-headless.data-pipeline.svc.cluster.local";
 const RUSTMQ_PORT: u16 = 9092;
 const MTA_API_BASE: &str = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2F";
-const POLL_INTERVAL_SECS: u64 = 15;
+const POLL_INTERVAL_SECS: u64 = 5;
 
 // RustMQ Message structure (must match RustMQ's message.rs)
 #[derive(Debug, Serialize, Deserialize)]
